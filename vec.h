@@ -11,7 +11,7 @@
 		size_t length;\
 	}\
 
-#define INIT_VEC { .arr = NULL, .capacity = 0, .length = 0 };
+#define INIT_VEC { 0 };
 #define MIN_VEC_CAP 256
 
 #define vec_push_back(vec, item)\

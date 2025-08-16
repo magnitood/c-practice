@@ -3,8 +3,9 @@
 #include <string.h>
 #include <pthread.h>
 #include <assert.h>
+#include <limits.h>
 
-#define MAX 100000000
+#define MAX 25000
 
 void merge_sort(int *, size_t);
 void merge_sort_st(int *arr, size_t start, size_t end);
@@ -20,9 +21,9 @@ int main()
 	}
 	printf("Starting Sort\n");
 	merge_sort(arr, MAX);
-	// for (int i = 0; i < MAX; i++) {
-	// 	printf("%d\n", arr[i]);
-	// }
+	for (int i = 0; i < MAX; i++) {
+		printf("%d\n", arr[i]);
+	}
 	printf("Sorted\n");
 	return EXIT_SUCCESS;
 }
@@ -97,25 +98,15 @@ void combine(int *arr, int start, int mid, int end)
 	int j = mid+1;
 	int k = 0;
 	while (i <= mid && j <= end) {
-		if (arr[i] < arr[j]) {
-			temp_arr[k] = arr[i];
-			i++;
-			k++;
-		} else {
-			temp_arr[k] = arr[j];
-			j++;
-			k++;
-		}
+		if (arr[i] < arr[j])
+			temp_arr[k++] = arr[i++];
+		else
+			temp_arr[k++] = arr[j++];
 	}
-	while (i <= mid) {
-		temp_arr[k] = arr[i];
-		k++;
-		i++;
-	}
-	while (j <= end) {
-		temp_arr[k] = arr[j];
-		k++;
-		j++;
-	}
+	while (i <= mid)
+		temp_arr[k++] = arr[i++];
+	while (j <= end)
+		temp_arr[k++] = arr[j++];
+
 	memcpy(arr+start, temp_arr, sizeof(int) * temp_arr_size);
 }
